@@ -47,6 +47,11 @@ public class Book
         this.checkedOut = true;
     }
 
+    public void checkIn()
+    {
+        this.checkedOut = false;
+    }
+
     public String getBookInfo()
     {
         return "Title: " + this.title + "\nAuthor: " + this.author + "\nYear: " + year.toString() + "\n";

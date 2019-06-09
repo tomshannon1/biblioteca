@@ -28,8 +28,8 @@ public class ReleaseOneTest
     @Test
     public void returnBookTest()
     {
-        assertEquals("You have successfully returned Huckleberry Finn by Mark Twain.", library.returnBook("Huckleberry Finn by Mark Twain"));
-        assertEquals("Unfortunately, this book was unsuccessfully returned.", library.returnBook("1984 by George Orwell"));
+        assertEquals("You have successfully returned Huckleberry Finn by Mark Twain.", library.checkIn("Huckleberry Finn by Mark Twain"));
+        assertEquals("Unfortunately, this book was unsuccessfully returned.", library.checkIn("1984 by George Orwell"));
     }
 
     @Test
