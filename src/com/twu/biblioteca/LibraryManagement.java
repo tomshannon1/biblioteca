@@ -63,6 +63,10 @@ public class LibraryManagement
         {
             viewBooks();
         }
+        else if(option == 4)
+        {
+            System.exit(0);
+        }
     }
 
     public void viewBooks()
