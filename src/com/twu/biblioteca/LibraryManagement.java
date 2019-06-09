@@ -1,11 +1,18 @@
 package com.twu.biblioteca;
+import java.util.Scanner;
 
 public class LibraryManagement
 {
+    private Integer option;
+    private static Integer FIRST_OPTION = 1;
+    private static Integer LAST_OPTION = 4;
+
     public LibraryManagement()
     {
         System.out.println("Welcome to the Biblioteca Library Management System!");
+        
         viewMenuOptions();
+        getUserOption();
     }
 
     public void viewMenuOptions()
@@ -15,5 +22,25 @@ public class LibraryManagement
         System.out.println("2. Check out a book");
         System.out.println("3. Return a book");
         System.out.println("4. Quit the application");
+    }
+
+    public void getUserOption()
+    {
+        Scanner scanner = new Scanner(System.in); 
+       
+        System.out.print("Enter option: ");
+        option = scanner.nextInt();
+        
+        while (option == null || option < FIRST_OPTION || option > LAST_OPTION)
+        {
+            System.out.print("Sorry, you seemed to enter an invalid option. Please try again: ");
+            option = scanner.nextInt();
+        }
+        scanner.close();
+    }
+
+    public Integer getChoice()
+    {
+        return option;
     }
 }
