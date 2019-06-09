@@ -65,23 +65,37 @@ public class LibraryManagement
         }
         else if(option == 2)
         {
-            System.out.print("Please enter the title of the book you wish to check out: ");
-            Scanner bookTitleScanner = new Scanner(System.in);
-            checkOut(bookTitleScanner.nextLine());
-            bookTitleScanner.close();
+            promptUserForBookChoice("Please enter the title of the book you wish to check out: ", "Check Out");
         }
         else if(option == 3)
         {
-            System.out.print("Please enter the title of the book you wish to return: ");
-            Scanner bookTitleScanner = new Scanner(System.in);
-            checkIn(bookTitleScanner.nextLine());
-            bookTitleScanner.close();
+            promptUserForBookChoice("Please enter the title of the book you wish to return: ", "Check In");
         }
         else if(option == 4)
         {
             System.exit(0);
         }
 
+        viewMenuOptions();
+        getUserOption();
+        reactToOption();
+    }
+
+    private void promptUserForBookChoice(String prompt, String process)
+    {
+        System.out.print(prompt);
+        Scanner bookTitleScanner = new Scanner(System.in);
+
+        if(process.equals("Check Out"))
+        {
+            checkOut(bookTitleScanner.nextLine());
+        }
+        else if(process.equals("Check In"))
+        {
+            checkIn(bookTitleScanner.nextLine());
+        }
+
+        bookTitleScanner.close();
     }
 
     public void viewBooks()
@@ -95,10 +109,6 @@ public class LibraryManagement
                 System.out.println(book.getBookInfo());
             }
         }
-
-        viewMenuOptions();
-        getUserOption();
-        reactToOption();
     }
 
     public void checkOut(String bookTitle)
