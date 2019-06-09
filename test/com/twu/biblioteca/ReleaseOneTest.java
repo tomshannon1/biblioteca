@@ -9,6 +9,8 @@ import java.beans.Transient;
 public class ReleaseOneTest 
 {
     private LibraryManagement library;
+    private static int LAST_OPTION = 4;
+    private static int FIRST_OPTION = 1;
 
     @Before
     public void setUp()
@@ -33,6 +35,7 @@ public class ReleaseOneTest
     @Test
     public void invalidMenuOption()
     {
-        
+        assert(library.getChoice() <= LAST_OPTION);
+        assert(library.getChoice() >= FIRST_OPTION);
     }
 }
