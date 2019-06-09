@@ -9,7 +9,7 @@ public class LibraryManagement
 
     public LibraryManagement()
     {
-        System.out.println("Welcome to the Biblioteca Library Management System!");
+        System.out.println("Welcom to Biblioteca. Your one-stop shop for great book titles in Bangalore!");
         
         viewMenuOptions();
         getUserOption();
@@ -33,9 +33,10 @@ public class LibraryManagement
         
         while (option == null || option < FIRST_OPTION || option > LAST_OPTION)
         {
-            System.out.print("Sorry, you seemed to enter an invalid option. Please try again: ");
+            System.out.print("Please select a valid option! Enter option: ");
             option = scanner.nextInt();
         }
+
         scanner.close();
     }
 
@@ -43,4 +44,5 @@ public class LibraryManagement
     {
         return option;
     }
+
 }
