@@ -1,0 +1,10 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "CodeLens (Launch) - BibliotecaApp",
+            "request": "launch",
+            "mainClass": "com.twu.biblioteca.BibliotecaApp"
+        }
+    ]
+}
