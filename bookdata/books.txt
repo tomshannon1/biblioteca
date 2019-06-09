@@ -1,6 +1,6 @@
-Adventures of Huckleberry Finn, Mark Twain, 1884
-The Great Gatsby, Scott Fitzgerald, 1925
-1984, George Orwell, 1949
-Inferno, Dante Alegheri, 1320
-The Odyssey, Homer, 823
-Fahrenheit 451, Ray Bradbury, 1953
+Adventures of Huckleberry Finn, Mark Twain, 1884, 1
+The Great Gatsby, Scott Fitzgerald, 1925, 2
+1984, George Orwell, 1949, 3
+Inferno, Dante Alegheri, 1320, 4
+The Odyssey, Homer, 823, 5
+Fahrenheit 451, Ray Bradbury, 1953, 6

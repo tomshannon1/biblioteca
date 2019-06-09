@@ -30,8 +30,9 @@ public class BookRepository
                 String title = bookInformation[0];
                 String author = bookInformation[1];
                 Integer year = Integer.parseInt(bookInformation[2]);
+                String bookID = bookInformation[3];
 
-                Book newBook = new Book(title, author, year);
+                Book newBook = new Book(title, author, year, bookID);
 
                 bookRepository.add(newBook);
             }

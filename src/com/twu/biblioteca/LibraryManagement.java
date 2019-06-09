@@ -63,10 +63,18 @@ public class LibraryManagement
         {
             viewBooks();
         }
+        else if(option == 2)
+        {
+            System.out.print("Please enter the title of the book you wish to check out: ");
+            Scanner bookTitleScanner = new Scanner(System.in);
+            checkOut(bookTitleScanner.nextLine());
+            bookTitleScanner.close();
+        }
         else if(option == 4)
         {
             System.exit(0);
         }
+
     }
 
     public void viewBooks()
@@ -86,4 +94,34 @@ public class LibraryManagement
         reactToOption();
     }
 
+    public void checkOut(String bookTitle)
+    {
+        boolean bookFound = false;
+
+        for(Book book : bookRepository.getBooks())
+        {
+            if(book.getTitle().equals(bookTitle))
+            {
+                if(!book.isCheckedOut())
+                {
+                    book.checkOut();
+                    System.out.println("Thank you! Enjoy the book.\n");
+                }
+                else
+                {
+                    System.out.println("Sorry, that book is not available.\n");
+                }
+                bookFound = true;
+            }
+        }
+
+        if(bookFound == false)
+        {
+            System.out.println("Sorry, that book is not available. Did you spell the title correctly?\n");
+        }
+
+        viewMenuOptions();
+        getUserOption();
+        reactToOption();
+    }
 }

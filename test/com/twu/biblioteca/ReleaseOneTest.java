@@ -21,8 +21,8 @@ public class ReleaseOneTest
     @Test
     public void checkOutBookTest() 
     {
-        assertEquals("You have successfully checked out Huckleberry Finn by Mark Twain.", library.checkOut("Huckleberry Finn by Mark Twain"));
-        assertEquals("Unfortnately, this book cannot be checked out.", library.checkOut("Le Petit Prince by Antoine de Saint-Exupéry"));
+        assertEquals("You have successfully checked out Huckleberry Finn by Mark Twain.", library.checkOut("Huckleberry Finn"));
+        assertEquals("Unfortnately, this book cannot be checked out.", library.checkOut("Le Petit Prince"));
     }
 
     @Test
