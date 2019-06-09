@@ -6,14 +6,21 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public class BookRepository extends Repository
+public class LibraryAssetRepository
 {
-    public BookRepository()
+    private ArrayList<Book> bookRepository;
+    private ArrayList<Movie> movieRepository;
+
+    public LibraryAssetRepository()
     {
-        super();
+        bookRepository = new ArrayList<Book>();
+        movieRepository = new ArrayList<Movie>();
+        
+
+        addFakeBookData();
     }
 
-    public void addPreDefinedData()
+    private void addFakeBookData()
     {
         try
         {
@@ -26,10 +33,11 @@ public class BookRepository extends Repository
                 String title = bookInformation[0];
                 String author = bookInformation[1];
                 Integer year = Integer.parseInt(bookInformation[2]);
+                String bookID = bookInformation[3];
 
-                Book newBook = new Book(title, author, year);
+                Book newBook = new Book(title, author, year, bookID);
 
-                appepndToRepo(newBook);
+                bookRepository.add(newBook);
             }
             fileContent.close();
         }
@@ -38,5 +46,10 @@ public class BookRepository extends Repository
             e.printStackTrace();
         }
 
+    }
+
+    public ArrayList<Book> getBooks()
+    {
+        return this.bookRepository;
     }
 }

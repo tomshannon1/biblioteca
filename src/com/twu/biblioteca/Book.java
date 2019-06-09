@@ -6,7 +6,7 @@ public class Book extends LibraryAsset
     private String author;
     private Integer year;
 
-    public Book(String bookTitle, String authorName, Integer yearPublished, String bookID)
+    public Book(String bookTitle, String authorName, Integer yearPublished)
     {
         super();
         this.title = bookTitle;
