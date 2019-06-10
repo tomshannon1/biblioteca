@@ -6,11 +6,15 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public class UserRepository extends Repository
+import com.twu.biblioteca.users.User;
+
+public class UserRepository implements Repository<User>
 {
+    ArrayList<User> usersRepo = new ArrayList<User>();
+
     public UserRepository()
     {
-        super();
+        addPreDefinedData();
     }
 
     public void addPreDefinedData()
@@ -31,7 +35,7 @@ public class UserRepository extends Repository
 
                 User newUser = new User(name, libraryID, password, email, phoneNumber);
 
-                appepndToRepo(newUser);
+                appendToRepo(newUser);
             }
             fileContent.close();
         }
@@ -39,6 +43,16 @@ public class UserRepository extends Repository
         {
             e.printStackTrace();
         }
-
     }
+
+    public void appendToRepo(User user)
+    {
+        this.usersRepo.add(user);
+    }
+
+    public ArrayList<User> getRepositoryData()
+    {
+        return this.usersRepo;
+    }
+
 }

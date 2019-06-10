@@ -6,11 +6,16 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public class MovieRepository extends Repository
+import com.twu.biblioteca.libraryassets.Movie;
+
+public class MovieRepository implements Repository<Movie>
 {
+
+    ArrayList<Movie> moviesRepo = new ArrayList<Movie>();
+
     public MovieRepository()
     {
-        super();
+        addPreDefinedData();
     }
 
     public void addPreDefinedData()
@@ -23,13 +28,14 @@ public class MovieRepository extends Repository
             {
                 String movieInformation [] = fileContent.nextLine().split(", ");
                 
-                String name = bookInformation[0];
-                String director = bookInformation[1];
-                Integer rating = Integer.parseInt(bookInformation[2]);
+                String name = movieInformation[0];
+                Integer year = Integer.parseInt(movieInformation[1]);
+                String director = movieInformation[2];
+                String rating = movieInformation[3];
 
-                Movie newMovie = new Movie(name, director, rating);
+                Movie newMovie = new Movie(name, year, director, rating);
 
-                appepndToRepo(newMovie);
+                appendToRepo(newMovie);
             }
             fileContent.close();
         }
@@ -38,5 +44,15 @@ public class MovieRepository extends Repository
             e.printStackTrace();
         }
 
+    }
+
+    public void appendToRepo(Movie movie)
+    {
+        this.moviesRepo.add(movie);
+    }
+
+    public ArrayList<Movie> getRepositoryData()
+    {
+        return this.moviesRepo;
     }
 }

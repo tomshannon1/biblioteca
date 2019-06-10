@@ -6,26 +6,11 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public abstract class Repository
+public interface Repository<T>
 {
-    private ArrayList<Object> repository;
+    public void appendToRepo(T object);
 
-    public LibraryAssetRepository()
-    {
-        repository = new ArrayList<Object>();
+    public addPreDefinedData();
 
-        addPreDefinedData();
-    }
-
-    public ArrayList<Object> getRepositoryData()
-    {
-        return this.repository;
-    }
-
-    public void appepndToRepo(Object object)
-    {
-        repository.add(obeject);
-    }
-
-    public abstract addPreDefinedData();
+    public ArrayList<T> getRepositoryData();
 }

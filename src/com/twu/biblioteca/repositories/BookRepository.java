@@ -6,18 +6,23 @@ import java.io.File;
 import java.util.Scanner;
 import java.io.FileInputStream;
 
-public class BookRepository extends Repository
+import com.twu.biblioteca.libraryassets.Book;
+
+public class BookRepository implements Repository<Book>
 {
+
+    ArrayList<Book> booksRepo = new ArrayList<Book>();
+
     public BookRepository()
     {
-        super();
+        addPreDefinedData();
     }
 
     public void addPreDefinedData()
     {
         try
         {
-            Scanner fileContent = new Scanner(new File("bookdata/books.txt"));
+            Scanner fileContent = new Scanner(new File("data/books.txt"));
 
             while(fileContent.hasNextLine())
             {
@@ -29,7 +34,7 @@ public class BookRepository extends Repository
 
                 Book newBook = new Book(title, author, year);
 
-                appepndToRepo(newBook);
+                appendToRepo(newBook);
             }
             fileContent.close();
         }
@@ -37,6 +42,15 @@ public class BookRepository extends Repository
         {
             e.printStackTrace();
         }
+    }
 
+    public void appendToRepo(Book book)
+    {
+        this.booksRepo.add(book);
+    }
+
+    public ArrayList<Book> getRepositoryData()
+    {
+        return this.booksRepo;
     }
 }

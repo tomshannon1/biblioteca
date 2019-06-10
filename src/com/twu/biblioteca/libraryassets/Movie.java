@@ -3,13 +3,15 @@ package com.twu.biblioteca;
 public class Movie extends LibraryAsset
 {
     private String movieName;
+    private Integer movieYear;
     private String directorName;
-    private Integer movieRating;
+    private String movieRating;
 
-    public Movie(String name, String director, Integer rating)
+    public Movie(String name, Integer year, String director, String rating)
     {
         super();
         this.movieName = name;
+        this.movieYear = year;
         this.directorName = director;
         this.movieRating = rating;
     }
@@ -19,12 +21,17 @@ public class Movie extends LibraryAsset
         return this.movieName;
     }
 
+    public Integer getMovieYear()
+    {
+        return this.movieYear;
+    }
+
     public String getDirectorName()
     {
         return this.directorName;
     }
 
-    public Integer getMovieRating()
+    public String getMovieRating()
     {
         return this.movieRating;
     }

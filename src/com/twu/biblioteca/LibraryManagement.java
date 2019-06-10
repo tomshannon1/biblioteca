@@ -1,15 +1,19 @@
 package com.twu.biblioteca;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+import com.twu.repositories.*;
 
 public class LibraryManagement
 {
     private Integer option;
 
     private static Integer FIRST_OPTION = 1;
-    private static Integer LAST_OPTION = 4;
+    private static Integer LAST_OPTION = 7;
 
     private BookRepository bookRepository;
+    private MovieRepository movieRepository;
+    private UserRepository userRepository;
+
     private Scanner optionScanner;
 
     public LibraryManagement()
@@ -17,6 +21,9 @@ public class LibraryManagement
         System.out.println("Welcome to Biblioteca. Your one-stop shop for great book titles in Bangalore!");
         
         bookRepository = new BookRepository();
+        movieRepository = new MovieRepository();
+        userRepository = new UserRepository();
+
         optionScanner = new Scanner(System.in); 
 
         viewMenuOptions();
@@ -32,7 +39,10 @@ public class LibraryManagement
         System.out.println("1. View list of books");
         System.out.println("2. Check out a book");
         System.out.println("3. Return a book");
-        System.out.println("4. Quit the application");
+        System.out.println("4. View list of movies");
+        System.out.println("5. Check out a movie");
+        System.out.println("6. Return a movie");
+        System.out.println("7. Quit the application");
     }
 
     public void getUserOption()
@@ -73,6 +83,10 @@ public class LibraryManagement
         }
         else if(option == 4)
         {
+            viewMovies();
+        }
+        else if(option == 7)
+        {
             System.exit(0);
         }
 
@@ -102,7 +116,7 @@ public class LibraryManagement
     {
         System.out.println("\nBelow is a list of available books for check out.\n");
 
-        for(Book book : bookRepository.getBooks())
+        for(Book book : bookRepository.getRepositoryData())
         {
             if(book.isCheckedOut() == false)
             {
@@ -111,11 +125,24 @@ public class LibraryManagement
         }
     }
 
+    public void viewMovies()
+    {
+        System.out.println("\nBelow is a list of available books for check out.\n");
+
+        for(Movie movie : movieRepository.getRepositoryData())
+        {
+            if(movie.isCheckedOut() == false)
+            {
+                System.out.println(movie.getMovieInformation());
+            }
+        } 
+    }
+
     public void checkOut(String bookTitle)
     {
         boolean bookFound = false;
 
-        for(Book book : bookRepository.getBooks())
+        for(Book book : bookRepository.getRepositoryData())
         {
             if(book.getTitle().equals(bookTitle))
             {
@@ -146,7 +173,7 @@ public class LibraryManagement
     {
         boolean bookFound = false;
 
-        for(Book book : bookRepository.getBooks())
+        for(Book book : bookRepository.getRepositoryData())
         {
             if(book.getTitle().equals(bookTitle))
             {

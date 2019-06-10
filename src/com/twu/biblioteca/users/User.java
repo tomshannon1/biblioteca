@@ -5,19 +5,26 @@ public class User
      private String libraryNumber;
      private String name;
      private String email;
-     private String phoneNumber;
+     private String phoneNumber; 
+     private String password;
 
-     public User(String userLibraryNumber, String userName, String userEmail, String userPhoneNumber)
+     public User(String userName, String libraryID, String password, String email, String phoneNumber)
      {
-         this.libraryNumber = userLibraryNumber;
          this.name = userName;
-         this.email = userEmail;
-         this.phoneNumber = userPhoneNumber;
+         this.libraryNumber = libraryID;
+         this.password = password;
+         this.email = email;
+         this.phoneNumber = phoneNumber;
      }
 
      public String getLibraryNumber()
      {
         return this.libraryNumber;
+     }
+
+     protected String getPassword()
+     {
+        return this.password;
      }
 
      public String getName()
