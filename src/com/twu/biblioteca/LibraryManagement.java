@@ -1,4 +1,5 @@
 package com.twu.biblioteca;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import com.twu.repositories.*;
@@ -14,6 +15,8 @@ public class LibraryManagement
     private MovieRepository movieRepository;
     private UserRepository userRepository;
 
+    private HashMap<String, Repository> repositories = new HashMap<String, Repository>();
+
     private Scanner optionScanner;
 
     public LibraryManagement()
@@ -23,6 +26,9 @@ public class LibraryManagement
         bookRepository = new BookRepository();
         movieRepository = new MovieRepository();
         userRepository = new UserRepository();
+
+        repositories.put("book", bookRepository);
+        repositories.put("movie", movieRepository);
 
         optionScanner = new Scanner(System.in); 
 
@@ -71,19 +77,27 @@ public class LibraryManagement
     {
         if(option == 1)
         {
-            viewBooks();
+            viewAssets("book");
         }
         else if(option == 2)
         {
-            promptUserForBookChoice("Please enter the title of the book you wish to check out: ", "Check Out");
+            promptUserForAssetChoice("Please enter the title of the book you wish to check out: ", "Check Out", "book");
         }
         else if(option == 3)
         {
-            promptUserForBookChoice("Please enter the title of the book you wish to return: ", "Check In");
+            promptUserForAssetChoice("Please enter the title of the book you wish to return: ", "Check In", "book");
         }
         else if(option == 4)
         {
-            viewMovies();
+            viewAssets("movie");
+        }
+        else if(option == 5)
+        {
+            promptUserForAssetChoice("Please enter the title of the movie you wish to check out: ", "Check Out", "movie");
+        }
+        else if(option == 6)
+        {
+            promptUserForAssetChoice("Please enter the title of the movie you wish to check out: ", "Check In", "movie");
         }
         else if(option == 7)
         {
@@ -95,73 +109,64 @@ public class LibraryManagement
         reactToOption();
     }
 
-    private void promptUserForBookChoice(String prompt, String process)
+    private void promptUserForAssetChoice(String prompt, String process, String assetType)
     {
         System.out.print(prompt);
-        Scanner bookTitleScanner = new Scanner(System.in);
+        Scanner titleScanner = new Scanner(System.in);
 
         if(process.equals("Check Out"))
         {
-            checkOut(bookTitleScanner.nextLine());
+            checkOut(titleScanner.nextLine(), assetType);
         }
         else if(process.equals("Check In"))
         {
-            checkIn(bookTitleScanner.nextLine());
+            checkIn(titleScanner.nextLine(), assetType);
         }
 
-        bookTitleScanner.close();
+        titleScanner.close();
     }
 
-    public void viewBooks()
+    public void viewAssets(String assetType)
     {
-        System.out.println("\nBelow is a list of available books for check out.\n");
+        System.out.println("\nBelow is a list of available " + assetType + "s for check out.");
 
-        for(Book book : bookRepository.getRepositoryData())
+        for(Object asset : repositories.get(assetType).getRepositoryData())
         {
-            if(book.isCheckedOut() == false)
+            LibraryAsset libAsset = (LibraryAsset)asset;
+
+            if(libAsset.isCheckedOut() == false)
             {
-                System.out.println(book.getBookInfo());
+                System.out.println(libAsset.getInfo());
             }
         }
     }
 
-    public void viewMovies()
+    public void checkOut(String assetTitle, String assetType)
     {
-        System.out.println("\nBelow is a list of available books for check out.\n");
+        boolean assetFound = false;
 
-        for(Movie movie : movieRepository.getRepositoryData())
+        for(Object asset : repositories.get(assetType).getRepositoryData())
         {
-            if(movie.isCheckedOut() == false)
-            {
-                System.out.println(movie.getMovieInformation());
-            }
-        } 
-    }
+            LibraryAsset libAsset = (LibraryAsset)asset;
 
-    public void checkOut(String bookTitle)
-    {
-        boolean bookFound = false;
-
-        for(Book book : bookRepository.getRepositoryData())
-        {
-            if(book.getTitle().equals(bookTitle))
+            if(libAsset.getTitle().equals(assetTitle))
             {
-                if(!book.isCheckedOut())
+                if(!libAsset.isCheckedOut())
                 {
-                    book.checkOut();
-                    System.out.println("Thank you! Enjoy the book.\n");
+                    libAsset.checkOut();
+                    System.out.println("Thank you! Enjoy the " + assetType + ".\n");
                 }
                 else
                 {
-                    System.out.println("Sorry, that book is not available.\n");
+                    System.out.println("Sorry, that " + assetType + " is not available.\n");
                 }
-                bookFound = true;
+                assetFound = true;
             }
         }
 
-        if(bookFound == false)
+        if(assetFound == false)
         {
-            System.out.println("Sorry, that book is not available. Did you spell the title correctly?\n");
+            System.out.println("Sorry, that " + assetType + " is not available. Did you spell the title correctly?\n");
         }
 
         viewMenuOptions();
@@ -169,27 +174,29 @@ public class LibraryManagement
         reactToOption();
     }
 
-    public void checkIn(String bookTitle)
+    public void checkIn(String assetTitle, String assetType)
     {
-        boolean bookFound = false;
+        boolean assetFound = false;
 
-        for(Book book : bookRepository.getRepositoryData())
+        for(Object asset : repositories.get(assetType).getRepositoryData())
         {
-            if(book.getTitle().equals(bookTitle))
+            LibraryAsset libAsset = (LibraryAsset)asset;
+
+            if(libAsset.getTitle().equals(assetTitle))
             {
-                if(book.isCheckedOut())
+                if(libAsset.isCheckedOut())
                 {
-                    book.checkIn();
-                    System.out.println("Thank you for returning the book.\n");
+                    libAsset.checkIn();
+                    System.out.println("Thank you for returning the" + assetType + ".\n");
                 }
 
-                bookFound = true;
+                assetFound = true;
             }
         }
 
-        if(bookFound == false)
+        if(assetFound == false)
         {
-            System.out.println("That is not a valid book to return.\n");
+            System.out.println("That is not a valid " + assetType + " to return.\n");
         }
 
         viewMenuOptions();

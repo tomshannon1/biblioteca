@@ -15,6 +15,7 @@ public class Book extends LibraryAsset
         this.year = yearPublished;
     }
 
+    @Override
     public String getTitle()
     {
         return this.title;
@@ -30,7 +31,7 @@ public class Book extends LibraryAsset
         return this.year;
     }
 
-    public String getBookInfo()
+    public String getInfo()
     {
         return "Title: " + this.title + "\nAuthor: " + this.author + "\nYear: " + year.toString() + "\n";
     }

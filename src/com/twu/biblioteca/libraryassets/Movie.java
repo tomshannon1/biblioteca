@@ -16,7 +16,8 @@ public class Movie extends LibraryAsset
         this.movieRating = rating;
     }
 
-    public String getMovieName()
+    @Override
+    public String getTitle()
     {
         return this.movieName;
     }
@@ -36,8 +37,8 @@ public class Movie extends LibraryAsset
         return this.movieRating;
     }
 
-    public String getMovieInformation()
+    public String getInfo()
     {
-        return "Movie name: " + this.movieName + "\nDirector: " + this.directorName + "\nMovie rating: " + this.movieRating + "\n";
+        return "Movie name: " + this.movieName + "\nMovie year: " + Integer.toString(this.movieYear) + "\nDirector: " + this.directorName + "\nMovie rating: " + this.movieRating + "\n";
     }
 }
