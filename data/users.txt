@@ -1,5 +1,5 @@
-Tom Shannon, 299-3333, tomlikescoffee, thomas.shannon@thoughtworks.com, 222-2222
-Jim Morrison, 393-2843, jimalsolikescofee, jim.morrison@thoughtworks.com, 234-3322
-Karen Singleton, 503-3222, pandalover23, karen.singleton@thoughtworks.com, 320-5443
-Larry Observer, 324-3432, bomchickawowwow, larry.observer@thoughtworks.com, 324-3433
-Samantha Proxy, 434-4331, chickennuggets, samantha.proxy@thoughtworks.com, 758-8877
+Tom Shannon, 299-3333, tomlikescoffee, thomas.shannon@thoughtworks.com, 222-2222, false
+Jim Morrison, 393-2843, jimalsolikescofee, jim.morrison@thoughtworks.com, 234-3322, false
+Karen Singleton, 503-3222, pandalover23, karen.singleton@thoughtworks.com, 320-5443, false
+Larry Observer, 324-3432, bomchickawowwow, larry.observer@thoughtworks.com, 324-3433, false
+Samantha Proxy, 434-4331, chickennuggets, samantha.proxy@thoughtworks.com, 758-8877, true

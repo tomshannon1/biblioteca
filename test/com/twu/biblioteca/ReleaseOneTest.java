@@ -9,7 +9,8 @@ import java.beans.Transient;
 public class ReleaseOneTest 
 {
     private LibraryManagement library;
-    private static int LAST_OPTION = 4;
+    
+    private static int LAST_OPTION = 7;
     private static int FIRST_OPTION = 1;
 
     @Before

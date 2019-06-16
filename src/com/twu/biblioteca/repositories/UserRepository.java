@@ -32,8 +32,9 @@ public class UserRepository implements Repository<User>
                 String password = userInformation[2];
                 String email = userInformation[3];
                 String phoneNumber = userInformation[4];
+                Boolean librarianAccess = Boolean.parseBoolean(userInformation[5]);
 
-                User newUser = new User(name, libraryID, password, email, phoneNumber);
+                User newUser = new User(name, libraryID, password, email, phoneNumber, librarianAccess);
 
                 appendToRepo(newUser);
             }

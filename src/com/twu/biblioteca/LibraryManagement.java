@@ -1,4 +1,5 @@
 package com.twu.biblioteca;
+import java.awt.SystemTray;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class LibraryManagement
     private Integer option;
 
     private static Integer FIRST_OPTION = 1;
-    private static Integer LAST_OPTION = 7;
+    private static Integer LAST_OPTION = 8;
 
     private BookRepository bookRepository;
     private MovieRepository movieRepository;
@@ -18,6 +19,7 @@ public class LibraryManagement
     private HashMap<String, Repository> repositories = new HashMap<String, Repository>();
 
     private Scanner optionScanner;
+    private User loggedInUser;
 
     public LibraryManagement()
     {
@@ -29,14 +31,51 @@ public class LibraryManagement
 
         repositories.put("book", bookRepository);
         repositories.put("movie", movieRepository);
+        repositories.put("users", userRepository);
 
         optionScanner = new Scanner(System.in); 
+
+        loginPrompt();
 
         viewMenuOptions();
         getUserOption();
         reactToOption();
 
         optionScanner.close();
+    }
+
+
+    public void loginPrompt()
+    {
+        boolean validated = false;
+        String userID;
+        String password;
+
+        do 
+        {   
+            System.out.print("Enter library id (XXX-XXXX): ");
+            userID = optionScanner.next();
+
+            System.out.print("Enter password: ");
+
+            password = optionScanner.next();
+
+            for(Object obj : repositories.get("users").getRepositoryData())
+            {
+                User user = (User)obj;
+                if(user.validateCredentials(password, userID))
+                {
+                    validated = true;
+                    loggedInUser = user;
+                }
+            }   
+
+            if(validated == false)
+            {
+                System.out.println("Sorry, these credentials aren't correct. Try again.");
+            }
+        }
+        while (validated == false);
     }
 
     public void viewMenuOptions()
@@ -48,7 +87,17 @@ public class LibraryManagement
         System.out.println("4. View list of movies");
         System.out.println("5. Check out a movie");
         System.out.println("6. Return a movie");
-        System.out.println("7. Quit the application");
+
+        if(loggedInUser.getLibrarianAccess())
+        {
+            System.out.println("7. View users checked out materials");
+        }
+        else
+        {
+            System.out.println("7. View user information");
+        }
+
+        System.out.println("8. Quit the application");
     }
 
     public void getUserOption()
@@ -99,9 +148,28 @@ public class LibraryManagement
         {
             promptUserForAssetChoice("Please enter the title of the movie you wish to check out: ", "Check In", "movie");
         }
-        else if(option == 7)
+        else if(option == 8)
         {
             System.exit(0);
+        }
+        else if(option == 7 && loggedInUser.getLibrarianAccess())
+        {
+            for(Object obj : repositories.get("users").getRepositoryData())
+            {
+                User user = (User)obj;
+                
+                System.out.println("Items checked out by: " + user.getName());
+
+                for(LibraryAsset asset : user.getCheckedOutItems())
+                {
+                    System.out.println(asset.getInfo());
+                }
+                System.out.println("\n");
+            }
+        }
+        else if(option == 7 && !loggedInUser.getLibrarianAccess())
+        {
+            System.out.println(loggedInUser.getInformation());
         }
 
         viewMenuOptions();
@@ -155,6 +223,7 @@ public class LibraryManagement
                 {
                     libAsset.checkOut();
                     System.out.println("Thank you! Enjoy the " + assetType + ".\n");
+                    loggedInUser.checkOut(libAsset);
                 }
                 else
                 {
@@ -187,7 +256,12 @@ public class LibraryManagement
                 if(libAsset.isCheckedOut())
                 {
                     libAsset.checkIn();
-                    System.out.println("Thank you for returning the" + assetType + ".\n");
+                    System.out.println("Thank you for returning the " + assetType + ".\n");
+                    loggedInUser.checkIn(libAsset);
+                }
+                else
+                {
+                    System.out.println("That item is not checked out to anyone.");
                 }
 
                 assetFound = true;
@@ -203,4 +277,5 @@ public class LibraryManagement
         getUserOption();
         reactToOption();
     }
+
 }
